@@ -1,0 +1,38 @@
+# Throwaway database for end-to-end tests (NODE_ENV=tollplaza.test). Safe to
+# drop and recreate; never point this at real data.
+appenv: 'tollplaza_test'
+
+databases:
+  tollplaza_db:
+    database: 'tollplaza_test'
+    username: 'root'
+    password: 'salman'
+    host: 'localhost'
+    dialect: 'mysql'
+    port: 3306
+    # Creates missing tables from the models on boot (never alters existing
+    # ones). Keep false outside local development.
+    synchronize: false
+    logging: false
+
+jwt:
+  expires_in: '12h'
+
+http:
+  # Set true when running behind a reverse proxy / load balancer, so the
+  # client IP (login audit, logs) comes from X-Forwarded-For
+  trust_proxy: false
+
+ipapi:
+  # Server-side location lookup for the login audit (ipapi.co). Private and
+  # loopback IPs are never looked up.
+  enabled: true
+  # Optional, for the paid tier
+  api_key: ''
+
+redis:
+  # Live-stream fan-out across app servers, and revoked sessions (logout).
+  # Leave url empty to use in-memory versions (one app server only).
+  url: 'redis://localhost:6379'
+  # Prefix for every key and channel, so environments can share a server
+  key_prefix: 'tollplaza_test:'

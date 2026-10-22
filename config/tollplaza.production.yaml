@@ -1,0 +1,34 @@
+appenv: 'tollplaza_production'
+
+databases:
+  tollplaza_db:
+    database: 'tollplaza'
+    username: 'CHANGE_ME'
+    password: 'CHANGE_ME'
+    host: 'CHANGE_ME'
+    dialect: 'mysql'
+    port: 3306
+    synchronize: false
+    logging: false
+
+jwt:
+  expires_in: '12h'
+
+http:
+  # Set true when running behind a reverse proxy / load balancer, so the
+  # client IP (login audit, logs) comes from X-Forwarded-For
+  trust_proxy: true
+
+ipapi:
+  # Server-side location lookup for the login audit (ipapi.co). Private and
+  # loopback IPs are never looked up.
+  enabled: true
+  # Optional, for the paid tier
+  api_key: ''
+
+redis:
+  # Live-stream fan-out across app servers, and revoked sessions (logout).
+  # Leave url empty to use in-memory versions (one app server only).
+  url: 'redis://CHANGE_ME:6379'
+  # Prefix for every key and channel, so environments can share a server
+  key_prefix: 'tollplaza:'
